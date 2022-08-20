@@ -1,12 +1,9 @@
 import React from "react";
 import { supabase } from "../api";
+import { useUserContext } from "../context";
 
 const Login = () => {
-  async function signInWithGithub() {
-    await supabase.auth.signIn({
-      provider: "github",
-    });
-  }
+  const { signInWithGithub } = useUserContext();
 
   return (
     <div>

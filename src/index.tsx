@@ -4,13 +4,17 @@ import "./index.css";
 
 import AppRouter from "./AppRouter";
 import reportWebVitals from "./reportWebVitals";
+import { UserContextProvider } from "./context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <AppRouter />
+    <UserContextProvider>
+      <AppRouter />
+    </UserContextProvider>
   </React.StrictMode>
 );
 

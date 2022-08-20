@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
-import { supabase } from "../api";
+import { useEffect } from "react";
+import { useUserContext } from "../context";
 
 const Home = () => {
-  const user = supabase.auth.user();
-
-  async function signout() {
-    await supabase.auth.signOut();
-  }
+  const { user, signout } = useUserContext();
 
   useEffect(() => {
     console.log(user);
