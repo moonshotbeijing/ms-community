@@ -1,5 +1,3 @@
-import React from "react";
-import { supabase } from "../api";
 import { useUserContext } from "../context";
 
 const Login = () => {

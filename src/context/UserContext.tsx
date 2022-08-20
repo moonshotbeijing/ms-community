@@ -38,20 +38,19 @@ const UserContext = createContext<UserContextProps>({
 const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
   children,
 }) => {
-  const supabaseUser = supabase.auth.user();
+  const user = supabase.auth.user();
 
-  const [user, setUser] = useState<any | null>(supabaseUser);
   const [authState, setAuthState] = useState<AuthState | null>(null);
-  const [isAuthed, setIsAuthed] = useState<boolean>(false);
+  const [isAuthed, setIsAuthed] = useState<boolean>(
+    user !== null || authState === "SIGNED_IN"
+  );
 
-  supabase.auth.onAuthStateChange((event, _) => setAuthState(event));
+  supabase.auth.onAuthStateChange((event, _) => {
+    setAuthState(event);
+  });
 
   useEffect(() => {
-    setUser(user);
-  }, [user]);
-
-  useEffect(() => {
-    setIsAuthed(user || authState === "SIGNED_IN");
+    setIsAuthed(user !== null || authState === "SIGNED_IN");
   }, [user, authState]);
 
   async function signInWithGithub() {
