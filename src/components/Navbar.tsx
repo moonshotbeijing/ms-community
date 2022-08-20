@@ -5,10 +5,8 @@ import LogoWithText from "../assets/logos/logo-with-text.png";
 import { useUserContext } from "../context";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Community Directory", href: "#", current: true },
+  { name: "Investors List", href: "#", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
