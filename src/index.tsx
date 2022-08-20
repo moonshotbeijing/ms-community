@@ -5,6 +5,7 @@ import "./index.css";
 import AppRouter from "./AppRouter";
 import reportWebVitals from "./reportWebVitals";
 import { UserContextProvider } from "./context";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,9 +13,15 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <AppRouter />
-    </UserContextProvider>
+    <HelmetProvider>
+      <Helmet>
+        <title>Moonshot | Where Gen-Zs Build</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
+      <UserContextProvider>
+        <AppRouter />
+      </UserContextProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 
