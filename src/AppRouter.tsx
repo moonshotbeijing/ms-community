@@ -1,20 +1,22 @@
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useUserContext } from "./context";
 import { Home, Login } from "./pages";
-import { PageWrapper } from "./components";
 
 function AppRouter() {
   const { isAuthed } = useUserContext();
 
+  if (!isAuthed) {
+    return <Login />;
+  }
+
   return (
-    <div>
-      {isAuthed ? (
-        <PageWrapper>
+    <Router>
+      <Switch>
+        <Route path="/">
           <Home />
-        </PageWrapper>
-      ) : (
-        <Login />
-      )}
-    </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

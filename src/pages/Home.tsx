@@ -1,18 +1,54 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import { supabase } from "../api";
 import { useUserContext } from "../context";
+import { ContactGrid, PageWrapper } from "../components";
 
 const Home = () => {
   const { user, signout } = useUserContext();
 
-  useEffect(() => {
-    console.log(user);
+  const fetchCurrentUserProfile = useCallback(async () => {
+    if (!user) return null;
+
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select()
+      .eq("user_id", user.id);
+
+    if (!profiles || profiles.length < 1) return null;
+    return profiles[0];
   }, [user]);
 
+  const createUserProfile = useCallback(async () => {
+    const { full_name, email, avatar_url, user_name } = user.user_metadata;
+
+    await supabase.from("profiles").insert([
+      {
+        user_id: user.id,
+        full_name,
+        email,
+        avatar_url,
+        github_username: user_name,
+      },
+    ]);
+  }, [user]);
+
+  const createUserProfileIfNoneFound = useCallback(async () => {
+    const currentProfile = await fetchCurrentUserProfile();
+
+    if (currentProfile) {
+      return;
+    }
+
+    createUserProfile();
+  }, [createUserProfile, fetchCurrentUserProfile]);
+
+  useEffect(() => {
+    createUserProfileIfNoneFound();
+  }, [createUserProfileIfNoneFound]);
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Welcome to Moonshot Factory
-      </h1>
+    <PageWrapper heading="Moonshot Directory">
+      <ContactGrid />
       <p>You are now logged in.</p>
 
       <img
@@ -28,7 +64,7 @@ const Home = () => {
       >
         Logout
       </button>
-    </div>
+    </PageWrapper>
   );
 };
 
