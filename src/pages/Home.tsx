@@ -1,56 +1,36 @@
-import { useCallback, useEffect } from "react";
-import { supabase } from "../api";
-import { useUserContext } from "../context";
+import { useEffect, useState } from "react";
+import { fetchUserProfileById, fetchAllUserProfiles } from "../api";
 import { ContactGrid, PageWrapper } from "../components";
+import { useUserContext } from "../context";
+import { UserProfile } from "../types";
+import { validateUserProfile } from "../utils";
 
 const Home = () => {
   const { user, signout } = useUserContext();
+  const [userProfiles, setUserProfiles] = useState<UserProfile[]>([]);
 
-  const fetchCurrentUserProfile = useCallback(async () => {
-    if (!user) return null;
-
-    const { data: profiles } = await supabase
-      .from("profiles")
-      .select()
-      .eq("user_id", user.id);
-
-    if (!profiles || profiles.length < 1) return null;
-    return profiles[0];
-  }, [user]);
-
-  const createUserProfile = useCallback(async () => {
-    const { full_name, email, avatar_url, user_name } = user.user_metadata;
-
-    await supabase.from("profiles").insert([
-      {
-        user_id: user.id,
-        full_name,
-        email,
-        avatar_url,
-        github_username: user_name,
-      },
-    ]);
-  }, [user]);
-
-  const createUserProfileIfNoneFound = useCallback(async () => {
-    const currentProfile = await fetchCurrentUserProfile();
-
-    if (currentProfile) {
+  useEffect(() => {
+    if (!user || !user.id) {
       return;
     }
 
-    createUserProfile();
-  }, [createUserProfile, fetchCurrentUserProfile]);
+    fetchUserProfileById(user.id).then((currentProfile) => {
+      if (!validateUserProfile(currentProfile)) {
+        window.location.href = "/onboarding";
+      }
+    });
+  }, [user]);
 
   useEffect(() => {
-    createUserProfileIfNoneFound();
-  }, [createUserProfileIfNoneFound]);
+    fetchAllUserProfiles().then((profiles) => setUserProfiles(profiles));
+  }, []);
 
   return (
     <PageWrapper heading="Moonshot Directory">
-      <ContactGrid />
-      <p>You are now logged in.</p>
+      {fetchAllUserProfiles}
+      <ContactGrid profiles={userProfiles} />
 
+      <p>You are now logged in.</p>
       <img
         src={user?.user_metadata.avatar_url}
         alt="Profile"

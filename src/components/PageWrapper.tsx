@@ -4,12 +4,17 @@ import Navbar from "./Navbar";
 type Props = {
   children: any;
   heading: string;
+  showNavBar?: boolean;
 };
 
-const PageWrapper: FunctionComponent<Props> = ({ children, heading }) => {
+const PageWrapper: FunctionComponent<Props> = ({
+  children,
+  heading,
+  showNavBar = true,
+}) => {
   return (
     <div>
-      <Navbar />
+      {showNavBar && <Navbar />}
 
       <div className="py-10">
         <header>

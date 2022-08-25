@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useUserContext } from "./context";
-import { Home, Login } from "./pages";
+import { Home, Login, Onboarding } from "./pages";
 
 function AppRouter() {
   const { isAuthed } = useUserContext();
@@ -12,9 +12,8 @@ function AppRouter() {
   return (
     <Router>
       <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
+        <Route path="/onboarding" component={Onboarding} />
+        <Route exact path="/" component={Home} />
       </Switch>
     </Router>
   );
