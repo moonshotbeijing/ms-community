@@ -4,12 +4,14 @@ import Navbar from "./Navbar";
 type Props = {
   children: any;
   heading: string;
+  subheading?: string;
   showNavBar?: boolean;
 };
 
 const PageWrapper: FunctionComponent<Props> = ({
   children,
   heading,
+  subheading,
   showNavBar = true,
 }) => {
   return (
@@ -22,6 +24,11 @@ const PageWrapper: FunctionComponent<Props> = ({
             <h1 className="text-3xl tracking-tight font-bold leading-tight text-gray-900">
               {heading}
             </h1>
+            {subheading && (
+              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                {subheading}
+              </p>
+            )}
           </div>
         </header>
         <main>

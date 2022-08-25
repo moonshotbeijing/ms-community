@@ -10,10 +10,6 @@ const Home = () => {
   const [userProfiles, setUserProfiles] = useState<UserProfile[]>([]);
 
   useEffect(() => {
-    if (!user || !user.id) {
-      return;
-    }
-
     fetchUserProfileById(user.id).then((currentProfile) => {
       if (!validateUserProfile(currentProfile)) {
         window.location.href = "/onboarding";

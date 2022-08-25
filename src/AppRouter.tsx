@@ -3,9 +3,9 @@ import { useUserContext } from "./context";
 import { Home, Login, Onboarding } from "./pages";
 
 function AppRouter() {
-  const { isAuthed } = useUserContext();
+  const { isAuthed, user } = useUserContext();
 
-  if (!isAuthed) {
+  if (!isAuthed || !user) {
     return <Login />;
   }
 
