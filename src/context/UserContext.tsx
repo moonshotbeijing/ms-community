@@ -5,7 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { supabase } from "../api";
+import { fetchUserProfileById, supabase } from "../api";
+import { UserProfile } from "../types";
 
 type AuthState =
   | "SIGNED_IN"
@@ -17,6 +18,7 @@ type AuthState =
 
 type UserContextProps = {
   user: any | null;
+  userProfile: UserProfile | null;
   authState: AuthState | null;
   isAuthed: boolean;
   signInWithGithub: () => Promise<void>;
@@ -29,6 +31,7 @@ type UserContextProviderProps = {
 
 const UserContext = createContext<UserContextProps>({
   user: null,
+  userProfile: null,
   authState: null,
   isAuthed: false,
   signInWithGithub: async () => {},
@@ -40,6 +43,7 @@ const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
 }) => {
   const user = supabase.auth.user();
 
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [authState, setAuthState] = useState<AuthState | null>(null);
   const [isAuthed, setIsAuthed] = useState<boolean>(
     user !== null || authState === "SIGNED_IN"
@@ -48,6 +52,16 @@ const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
   supabase.auth.onAuthStateChange((event, _) => {
     setAuthState(event);
   });
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    fetchUserProfileById(user.id).then((profile) => {
+      setUserProfile(profile);
+    });
+  }, [user]);
 
   useEffect(() => {
     setIsAuthed(user !== null || authState === "SIGNED_IN");
@@ -67,6 +81,7 @@ const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
     <UserContext.Provider
       value={{
         user,
+        userProfile,
         authState,
         isAuthed,
         signInWithGithub,

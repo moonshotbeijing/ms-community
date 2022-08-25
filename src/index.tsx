@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-import AppRouter from "./AppRouter";
+import AppRouter from "./router";
 import reportWebVitals from "./reportWebVitals";
 import { UserContextProvider } from "./context";
 import { Helmet, HelmetProvider } from "react-helmet-async";
