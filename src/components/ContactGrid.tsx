@@ -25,12 +25,12 @@ const ContactGrid: FunctionComponent<Props> = ({ profiles }) => {
             </h3>
             <dl className="mt-1 flex-grow flex flex-col justify-between">
               <dt className="sr-only">Title</dt>
-              <dd className="text-gray-500 text-sm">Title</dd>
+              <dd className="text-gray-500 text-sm">{profile.role}</dd>
               <dt className="sr-only">Role</dt>
               <dd className="mt-3">
-                <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-                  Role
-                </span>
+                {profile.industries.map((industry: string) => (<span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                  {industry}
+                </span>))}
               </dd>
             </dl>
           </div>

@@ -9,5 +9,8 @@ export interface UserProfile {
   id?: number;
   short_desc: string;
   user_id?: string;
+  role: string;
+  industries: string[];
+  moonshot_affiliate: string[];
 }
 

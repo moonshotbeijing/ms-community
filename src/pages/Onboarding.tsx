@@ -33,6 +33,9 @@ const Onboarding = () => {
           github_username: user.user_metadata.preferred_username,
           short_desc: "",
           user_id: user.id,
+          role:"",
+          industries:[],
+          moonshot_affiliate:[],
         }}
         validate={(values) => {
           const errors = {};
@@ -149,7 +152,229 @@ const Onboarding = () => {
                     </div>
                   </div>
                 </div>
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                  <label
+                    htmlFor="geography"
+                    className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
+                    Geography
+                  </label>
+                  <div className="mt-1 sm:mt-0 sm:col-span-2">
+                    <input
+                      type="text"
+                      name="geography"
+                      id="geography"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.geography}
+                      className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+              <label htmlFor="about" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                About
+              </label>
+              <div className="mt-1 sm:mt-0 sm:col-span-2">
+                <textarea
+                  name="short_desc"
+                  id = "short_desc"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.short_desc}
+                  rows={3}
+                  className="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
+                  defaultValue={''}
+                />
+                <p className="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
               </div>
+            </div>
+
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+              <label htmlFor="country" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                Who are you?
+              </label>
+              <div className="mt-1 sm:mt-0 sm:col-span-2">
+                <select
+                  id="role"
+                  name="role"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.role}
+                  className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                >
+                  <option value="founder">Founder</option>
+                  <option value="investor">Investor</option>
+                  <option value="employee">Employee</option>
+                </select>
+              </div>
+            </div>
+
+                
+             
+          <div className="space-y-6 sm:space-y-5 divide-y divide-gray-200 sm:border-t sm:border-gray-200">
+            <div className="pt-6 sm:pt-5">
+              <div role="group" aria-labelledby="label-email">
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
+                  <div>
+                    <div className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" >
+                      Which Web3 industry are you in?
+                    </div>
+                  </div>
+                  <div className="mt-4 sm:mt-0 sm:col-span-2">
+                    <div className="max-w-lg space-y-4">
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            name="industries"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value="arvr"
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="industries" className="font-medium text-gray-700">
+                            AR/VR
+
+                          </label>
+                        </div>
+                      </div>
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            value="blockchain-infra"
+                            name="industries"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="industries" className="font-medium text-gray-700">
+                            Blockchain Infrastructure
+
+                          </label>
+                        </div>
+                      </div>
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            value="nft"
+                            name="industries"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="industries" className="font-medium text-gray-700">
+                            NFT
+                          </label>
+                        </div>
+                      </div>
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            value="games"
+                            name="industries"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="industries" className="font-medium text-gray-700">
+                            Games
+                          </label>
+                        </div>
+                      </div>
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            value="defi"
+                            name="industries"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="industries" className="font-medium text-gray-700">
+                            Defi
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div> 
+            <div className="space-y-6 sm:space-y-5 divide-y divide-gray-200 sm:border-t sm:border-gray-200">
+            <div className="pt-6 sm:pt-5">
+              <div role="group" aria-labelledby="label-email">
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
+                  <div>
+                    <div className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700">
+                      How did you join us? *
+                    </div>
+                  </div>
+                  <div className="mt-4 sm:mt-0 sm:col-span-2">
+                    <div className="max-w-lg space-y-4">
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            name="moonshot_affiliate"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value="hackathon"
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="moonshot_affiliate" className="font-medium text-gray-700">
+                            Moonshot Hackathon
+
+                          </label>
+                        </div>
+                      </div>
+                      <div className="relative flex items-start">
+                        <div className="flex items-center h-5">
+                          <input
+                            value="mafia"
+                            name="moonshot_affiliate"
+                            type="checkbox"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label htmlFor="moonshot_affiliate" className="font-medium text-gray-700">
+                            Moonshot Mafia
+
+                          </label>
+                        </div>
+                      </div>
+                      
+                      
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+                
+            </div>
             </div>
 
             <div className="pt-5">
