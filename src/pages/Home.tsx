@@ -26,7 +26,7 @@ const Home = () => {
       heading="Moonshot Directory"
       subheading={
         userProfile?.first_name
-          ? `Welcome to the community, ${userProfile?.first_name}!`
+          ? `Hello ${userProfile?.first_name}, it's Moonshot!`
           : undefined
       }
     >
